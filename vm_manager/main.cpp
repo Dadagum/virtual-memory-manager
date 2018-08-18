@@ -2,6 +2,7 @@
 #include"SysConfig.h"
 using namespace std;
 
+
 void test() {
 	cout << SysConfig::PROCESS << endl;;
 }
