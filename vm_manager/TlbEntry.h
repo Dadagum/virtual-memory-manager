@@ -5,15 +5,19 @@
 	TLB±íÏî
 */
 class TlbEntry {
-public:
+private:
 	int pNumber; // ÐéÒ³ºÅ
 	int fNumber; // Ò³¿òºÅ
+public:
 	TlbEntry() {
-		pNumber = SysConfig::TLB_EMPTY;
-		fNumber = SysConfig::TLB_EMPTY;
+		clear();
 	}
 	void setValue(int p, int f) {
 		pNumber = p;
 		fNumber = f;
+	}
+	void clear() {
+		pNumber = SysConfig::TLBE_EMPTY;
+		fNumber = SysConfig::TLBE_EMPTY;
 	}
 };
