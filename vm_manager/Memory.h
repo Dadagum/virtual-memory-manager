@@ -1,6 +1,7 @@
 #pragma once
 #include"PageFrame.h"
 #include"SysConfig.h"
+#include"LruList.h"
 #include<cmath>
 
 /*
@@ -8,18 +9,15 @@
 */
 class Memory {
 private:
-	PageFrame * pf;
-	int curr; // 指向空余的位置
-	int capacity; // 容纳的最多页框数量
+	LruList<PageFrame> * memory;
 public:
 	Memory() {
-		capacity = SysConfig::M_SIZE * pow(2, 10) / SysConfig::PAGE_SIZE;
-		curr = 0;
-		pf = new PageFrame[capacity];
+		int capacity = SysConfig::M_SIZE * pow(2, 10) / SysConfig::PAGE_SIZE;
+		memory = new LruList<PageFrame>(capacity);
 	}
 	~Memory() {
-		delete [] pf;
+		delete memory;
 	}
-	void allocate(int pid, int pNumber);
-	void update(int fNumber);
+	int allocate(int pid, int pNumber);
+	int visit(int fNumber);
 };

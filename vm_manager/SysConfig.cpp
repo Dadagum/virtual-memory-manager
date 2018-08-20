@@ -15,8 +15,7 @@ const int SysConfig::M_SIZE = 32; // 物理内存大小32MB
 
 // TLB
 const int SysConfig::TLB = 16; // TLB表项个数
-const int SysConfig::TLBE_EMPTY = -1;
-const int SysConfig::TLB_MISS = -2;
+
 
 // 页表(此例子中根据题目要求采用二级页表)
 const int SysConfig::PT_LEVEL = 2;

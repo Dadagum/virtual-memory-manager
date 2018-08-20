@@ -8,11 +8,11 @@ void VMRunner::request(const Address & address)
 	// 检查TLB
 	int fNumber = tlb->getfNumber(pNumber);
 	if (fNumber == SysConfig::TLB_MISS) { // TLB缺失
-
+		fNumber = vms->request(address); // 在虚存中查找得到页框号
+		tlb->allocate(pNumber, fNumber); // 记录在TLB中
 	}
 	else { // TLB命中
-		tlb->update(pNumber); // 更新TLB记录
-
+		ram->visit(fNumber); // 访问内存
 	}
 }
 
@@ -28,7 +28,7 @@ void VMRunner::run()
 			Address * addresses = RandomUtil::nextAddressList(50, total); // 默认50次循环生成地址
 
 			for (int i = 0; i < total; i++) {
-				vms->request(addresses[i]); // 访问虚拟地址
+				request(addresses[i]); // 访问虚拟地址
 			}
 
 			// 导出页表内容

@@ -6,4 +6,10 @@ TwoLevelVmSys::TwoLevelVmSys()
 	root = new PageTable(SysConfig::PT1);
 }
 
+int TwoLevelVmSys::request(const Address & address)
+{
+	// TODO
+	return 0;
+}
+
 

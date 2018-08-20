@@ -1,25 +1,23 @@
 #pragma once
 #include"TlbEntry.h"
+#include"LruList.h"
+#define TLB_MISS -1 // TLB缺失
+#define TLBE_EMPTY -2 // TLB表项为空
 
 /*
 	TLB数据结构
 */
 class Tlb {
 private:
-	TlbEntry * entries;
+	LruList<TlbEntry> * entries;
 public:
 	Tlb() {
-		entries = new TlbEntry[SysConfig::TLB];
+		entries = new LruList<TlbEntry>(SysConfig::TLB);
 	}
 	~Tlb() {
-		delete[] entries;
+		delete entries;
 	}
-	// 清理TLB项内容
-	void clear() {
-		for (int i = 0; i < SysConfig::TLB; i++) entries[i].clear();
-	}
-	// 根据虚页号找到页框号，返回TLB_MISS表TLB没有记录
-	int getfNumber(int pNumber);
-	// 更新TLB内容
-	void update(int pNumber);
+	void clear(); // 清理TLB项内容
+	int getfNumber(int pNumber); // 根据虚页号找到页框号；返回TLB_MISS，表示TLB没有记录；具有记录时返回页框号，同时更新TLB的访问记录
+	void allocate(int pNumber, int fNumber);
 };
