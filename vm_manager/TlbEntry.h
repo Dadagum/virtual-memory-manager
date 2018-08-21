@@ -1,5 +1,5 @@
 #pragma once
-#include"Tlb.h"
+#include"Constant.h"
 
 /*
 	TLB±íÏî
@@ -17,7 +17,7 @@ public:
 		fNumber = f;
 	}
 	void clear() {
-		pNumber = Tlb::TLBE_EMPTY;
-		fNumber = Tlb::TLBE_EMPTY;
+		pNumber = Constant::TLBE_EMPTY;
+		fNumber = Constant::TLBE_EMPTY;
 	}
 };

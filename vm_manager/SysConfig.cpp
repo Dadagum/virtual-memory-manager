@@ -7,6 +7,7 @@ const int SysConfig::P2_SIZE = 32;
 const int SysConfig::P3_SIZE = 64;
 const int SysConfig::P4_SIZE = 128;
 const int SysConfig::P5_SIZE = 256;
+const int SysConfig::P_ROUND = 3;
 
 // 内存配置
 const int SysConfig::VA_BIT = 32; // 虚拟地址位长
@@ -19,8 +20,8 @@ const int SysConfig::TLB = 16; // TLB表项个数
 
 // 页表(此例子中根据题目要求采用二级页表)
 const int SysConfig::PT_LEVEL = 2;
-//static const int PT1;
-//static const int PT2;
+const int SysConfig::PT1 = 9;
+const int SysConfig::PT2 = 10;
 const int SysConfig::OFFSET = 13; // 偏移量占13bit(8KB)
 
 // 操作文件的名称模式
@@ -35,8 +36,6 @@ const int SysConfig::VL_FILE_LEN = 15; // 文件名称长度
 char      SysConfig::VISIT_INFO_FILE[] = "visit_seq_i.txt"; // 保存访问虚拟地址的信息的文件名
 const int SysConfig::VI_FILE_I = 10;
 const int SysConfig::VI_FILE_LEN = 17;
-
-
 
 // 随机数生成配置
 const int SysConfig::RAN_LIST = 9; // 第一个地址生成后再连续生成地址的个数

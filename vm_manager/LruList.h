@@ -23,3 +23,19 @@ public:
 	void visit(T item); // 访问某一个数据
 	T at(int index); // 下标index的值
 };
+
+template<typename T>
+inline void LruList<T>::allocate(T item)
+{
+}
+
+template<typename T>
+inline void LruList<T>::visit(T item)
+{
+}
+
+template<typename T>
+inline T LruList<T>::at(int index)
+{
+	return T();
+}

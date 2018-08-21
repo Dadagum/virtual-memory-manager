@@ -1,6 +1,7 @@
 #pragma once
 #include"TlbEntry.h"
 #include"LruList.h"
+#include"SysConfig.h"
 
 /*
 	TLB数据结构
@@ -9,8 +10,7 @@ class Tlb {
 private:
 	LruList<TlbEntry> * entries;
 public:
-	static const int TLB_MISS;
-	static const int TLBE_EMPTY;
+
 	Tlb() {
 		entries = new LruList<TlbEntry>(SysConfig::TLB);
 	}

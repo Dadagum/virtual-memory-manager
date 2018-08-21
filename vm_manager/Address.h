@@ -1,4 +1,5 @@
 #pragma once
+#include"SysConfig.h"
 
 /*
 	地址数据结构

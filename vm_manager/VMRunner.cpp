@@ -2,6 +2,7 @@
 #include"RandomUtil.h"
 #include"FileUtil.h"
 #include"RequestInfo.h"
+#include"Constant.h"
 
 void VMRunner::request(const Address & address, int pid)
 {
@@ -13,7 +14,7 @@ void VMRunner::request(const Address & address, int pid)
 
 	// ¼ì²éTLB
 	int fNumber = tlb->getfNumber(pNumber);
-	if (fNumber == Tlb::TLB_MISS) { // TLBÈ±Ê§
+	if (fNumber == Constant::TLB_MISS) { // TLBÈ±Ê§
 
 		// TODO info¼ÇÂ¼
 

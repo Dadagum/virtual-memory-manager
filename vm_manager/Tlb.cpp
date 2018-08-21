@@ -1,5 +1,14 @@
 #include"Tlb.h"
 
-// 常量
-const int Tlb::TLBE_EMPTY = -1; // TLB表项为空
-const int Tlb::TLB_MISS = -2; // TLB缺失
+void Tlb::clear()
+{
+}
+
+int Tlb::getfNumber(int pNumber)
+{
+	return 0;
+}
+
+void Tlb::allocate(int pNumber, int fNumber)
+{
+}

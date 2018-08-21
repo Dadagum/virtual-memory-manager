@@ -13,6 +13,14 @@ TwoLevelVmSys::TwoLevelVmSys()
 	e2 = cnt;
 }
 
+void TwoLevelVmSys::importPageTable(const char * fileName)
+{
+}
+
+void TwoLevelVmSys::savePageTable(const char * fileName)
+{
+}
+
 int TwoLevelVmSys::request(const Address & address, int pid, Memory * ram)
 {
 	int fNumber = 0;
