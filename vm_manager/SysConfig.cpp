@@ -9,7 +9,7 @@ const int SysConfig::P4_SIZE = 128;
 const int SysConfig::P5_SIZE = 256;
 
 // 内存配置
-const int SysConfig::VA_BIT = 32;
+const int SysConfig::VA_BIT = 32; // 虚拟地址位长
 const int SysConfig::PAGE_SIZE = 8; // 页面大小8KB
 const int SysConfig::M_SIZE = 32; // 物理内存大小32MB
 

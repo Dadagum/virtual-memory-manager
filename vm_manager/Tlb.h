@@ -1,8 +1,6 @@
 #pragma once
 #include"TlbEntry.h"
 #include"LruList.h"
-#define TLB_MISS -1 // TLB缺失
-#define TLBE_EMPTY -2 // TLB表项为空
 
 /*
 	TLB数据结构
@@ -11,6 +9,8 @@ class Tlb {
 private:
 	LruList<TlbEntry> * entries;
 public:
+	static const int TLB_MISS;
+	static const int TLBE_EMPTY;
 	Tlb() {
 		entries = new LruList<TlbEntry>(SysConfig::TLB);
 	}

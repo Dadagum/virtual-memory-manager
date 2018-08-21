@@ -6,5 +6,5 @@
 */
 class FileUtil {
 public:
-	void saveAddressList(Address * list, int size); // 保存一个进程的虚拟地址访问序列
+	static void saveAddressList(Address * list, int size, int pid); // 保存一个进程的虚拟地址访问序列
 };

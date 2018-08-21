@@ -1,5 +1,5 @@
 #pragma once
-#include"SysConfig.h"
+#include"Tlb.h"
 
 /*
 	TLB±íÏî
@@ -17,7 +17,7 @@ public:
 		fNumber = f;
 	}
 	void clear() {
-		pNumber = SysConfig::TLBE_EMPTY;
-		fNumber = SysConfig::TLBE_EMPTY;
+		pNumber = Tlb::TLBE_EMPTY;
+		fNumber = Tlb::TLBE_EMPTY;
 	}
 };

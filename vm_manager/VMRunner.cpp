@@ -1,19 +1,33 @@
 #include"VMRunner.h"
 #include"RandomUtil.h"
+#include"FileUtil.h"
+#include"RequestInfo.h"
 
-void VMRunner::request(const Address & address)
+void VMRunner::request(const Address & address, int pid)
 {
+	RequestInfo info; // 储存访问信息
 	// 提取地址除去offset的部分
 	int pNumber = address.getNumber(SysConfig::OFFSET);
+
+	info.pNumber = pNumber; // 记录VP number
+
 	// 检查TLB
 	int fNumber = tlb->getfNumber(pNumber);
-	if (fNumber == SysConfig::TLB_MISS) { // TLB缺失
-		fNumber = vms->request(address); // 在虚存中查找得到页框号
+	if (fNumber == Tlb::TLB_MISS) { // TLB缺失
+
+		// TODO info记录
+
+		fNumber = vms->request(address, pid, ram); // 在虚存中查找得到页框号
 		tlb->allocate(pNumber, fNumber); // 记录在TLB中
 	}
 	else { // TLB命中
-		ram->visit(fNumber); // 访问内存
+		ram->visit(fNumber); // 更新TLB的LRU队列
+
+		info.ptHit = true;
+		info.tlbHit = true;
 	}
+
+	info.fNumber = fNumber; // 记录 PF number
 }
 
 void VMRunner::run()
@@ -26,9 +40,10 @@ void VMRunner::run()
 			// 得到随机生成序列
 			int total = 0;
 			Address * addresses = RandomUtil::nextAddressList(50, total); // 默认50次循环生成地址
+			FileUtil::saveAddressList(addresses, total, p); // 将访问的虚拟地址输出保存
 
 			for (int i = 0; i < total; i++) {
-				request(addresses[i]); // 访问虚拟地址
+				request(addresses[i], p); // 访问虚拟地址
 			}
 
 			// 导出页表内容

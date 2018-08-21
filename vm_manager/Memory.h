@@ -18,6 +18,6 @@ public:
 	~Memory() {
 		delete memory;
 	}
-	int allocate(int pid, int pNumber);
-	int visit(int fNumber);
+	int allocate(int pid, int pNumber); // 分配一个页框，此处的pNumber只是PTn的值
+	int visit(int fNumber); // 更新LRU序列
 };
