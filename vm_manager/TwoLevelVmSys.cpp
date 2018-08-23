@@ -21,7 +21,7 @@ void TwoLevelVmSys::savePageTable(const char * fileName)
 {
 }
 
-int TwoLevelVmSys::request(const Address & address, int pid, Memory * ram)
+int TwoLevelVmSys::request(const Address & address, int pid, Memory * ram, RequestInfo & info)
 {
 	int fNumber = 0;
 	// 得到PT1，PT2的值
@@ -41,12 +41,21 @@ int TwoLevelVmSys::request(const Address & address, int pid, Memory * ram)
 		
 		table2[index]->entries[pt2].present = true;
 		table2[index]->entries[pt2].number = fNumber;
+
+		info.ptHit = false; // 缺失消息记录
 	}
 	else { // 在内存中
 		fNumber = table2[index]->entries[pt2].number; // 取出页框号
 		ram->visit(fNumber); // 更新LRU序列
+
+		info.ptHit = true;  // 命中消息记录
 	}
 	return fNumber;
+}
+
+int TwoLevelVmSys::request(const Address & addres, int pid, Memory * ram)
+{
+	return 0;
 }
 
 

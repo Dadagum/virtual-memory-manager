@@ -9,11 +9,7 @@ class SysConfig {
 public:
 	// 进程
 	static const int PROCESS; // 进程个数
-	static const int P1_SIZE; // 各个进程的大小，单位MB 
-	static const int P2_SIZE;
-	static const int P3_SIZE;
-	static const int P4_SIZE;
-	static const int P5_SIZE;
+	static const int P_SIZE[5]; // 进程的大小，单位MB 
 	static const int P_ROUND; // 进程轮流执行的次数
 
 	// 内存
@@ -31,15 +27,15 @@ public:
 	static const int OFFSET; // 页内偏移量
 
 	// 操作文件的名称模式
-	static char PT_FILE[]; // 保存进程的页表的文件名称模式
+	static const char PT_FILE[]; // 保存进程的页表的文件名称模式
 	static const int PT_FILE_I; // 替换模式的下标
 	static const int PT_FILE_LEN; // 文件名称的长度
 
-	static char	VISIT_LIST_FILE[]; // 保存随机生成的虚拟地址访问序列的文件名
+	static const char	VISIT_LIST_FILE[]; // 保存随机生成的虚拟地址访问序列的文件名
 	static const int VL_FILE_I; // 替换模式的下标
 	static const int VL_FILE_LEN; // 文件名称长度
 
-	static char VISIT_INFO_FILE[]; // 保存访问虚拟地址的信息的文件名
+	static const char VISIT_INFO_FILE[]; // 保存访问虚拟地址的信息的文件名
 	static const int VI_FILE_I; 
 	static const int VI_FILE_LEN;
 

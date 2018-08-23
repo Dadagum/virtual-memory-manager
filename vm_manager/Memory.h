@@ -10,9 +10,12 @@
 class Memory {
 private:
 	LruList<PageFrame> * memory;
+	int capacity;
+	int size;
 public:
 	Memory() {
-		int capacity = SysConfig::M_SIZE * pow(2, 10) / SysConfig::PAGE_SIZE;
+		size = 0;
+		capacity = SysConfig::M_SIZE * pow(2, 10) / SysConfig::PAGE_SIZE;
 		memory = new LruList<PageFrame>(capacity);
 	}
 	~Memory() {

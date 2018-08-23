@@ -20,4 +20,7 @@ public:
 		pNumber = Constant::TLBE_EMPTY;
 		fNumber = Constant::TLBE_EMPTY;
 	}
+	bool operator==(const TlbEntry & entry) {
+		return pNumber == entry.pNumber && fNumber == entry.fNumber;
+	}
 };

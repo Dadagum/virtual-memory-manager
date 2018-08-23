@@ -9,10 +9,13 @@
 class Tlb {
 private:
 	LruList<TlbEntry> * entries;
+	int capacity;
+	int size;
 public:
-
-	Tlb() {
-		entries = new LruList<TlbEntry>(SysConfig::TLB);
+	Tlb(int capacity = SysConfig::TLB) {
+		size = 0;
+		this->capacity = capacity;
+		entries = new LruList<TlbEntry>(capacity);
 	}
 	~Tlb() {
 		delete entries;

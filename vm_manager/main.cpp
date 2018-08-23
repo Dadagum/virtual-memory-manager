@@ -1,10 +1,12 @@
 #include<iostream>
 #include"SysConfig.h"
+#include"Test.h"
 using namespace std;
 
-
 void test() {
-	cout << SysConfig::PROCESS << endl;;
+	Test test;
+	// test.testLruList();
+	test.testNextAddressValue();
 }
 
 int main() {

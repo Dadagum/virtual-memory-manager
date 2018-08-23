@@ -2,11 +2,7 @@
 
 // 进程配置
 const int SysConfig::PROCESS = 5;
-const int SysConfig::P1_SIZE = 1;
-const int SysConfig::P2_SIZE = 32;
-const int SysConfig::P3_SIZE = 64;
-const int SysConfig::P4_SIZE = 128;
-const int SysConfig::P5_SIZE = 256;
+const int SysConfig::P_SIZE[5] = {1, 32, 64, 128, 256};
 const int SysConfig::P_ROUND = 3;
 
 // 内存配置
@@ -25,15 +21,15 @@ const int SysConfig::PT2 = 10;
 const int SysConfig::OFFSET = 13; // 偏移量占13bit(8KB)
 
 // 操作文件的名称模式
-char      SysConfig::PT_FILE[] = "page_table_i.txt"; // 保存进程的页表的文件名称模式，例如"pi_pageTable.txt"
+const char SysConfig::PT_FILE[] = "page_table_i.txt"; // 保存进程的页表的文件名称模式，例如"pi_pageTable.txt"
 const int SysConfig::PT_FILE_I = 11; // 替换上面文件模式的第一位i
 const int SysConfig::PT_FILE_LEN = 20; // 文件模式名称的长度
 
-char	  SysConfig::VISIT_LIST_FILE[] = "addr_seq_i.txt"; // 保存随机生成的虚拟地址访问序列的文件名
+const char SysConfig::VISIT_LIST_FILE[] = "addr_seq_i.txt"; // 保存随机生成的虚拟地址访问序列的文件名
 const int SysConfig::VL_FILE_I = 9; // 替换模式的下标
 const int SysConfig::VL_FILE_LEN = 15; // 文件名称长度
 
-char      SysConfig::VISIT_INFO_FILE[] = "visit_seq_i.txt"; // 保存访问虚拟地址的信息的文件名
+const char SysConfig::VISIT_INFO_FILE[] = "visit_seq_i.txt"; // 保存访问虚拟地址的信息的文件名
 const int SysConfig::VI_FILE_I = 10;
 const int SysConfig::VI_FILE_LEN = 17;
 
