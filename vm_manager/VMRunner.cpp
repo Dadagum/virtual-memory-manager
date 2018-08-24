@@ -1,6 +1,5 @@
 #include"VMRunner.h"
 #include"RandomUtil.h"
-#include"FileUtil.h"
 #include"RequestInfo.h"
 #include"Constant.h"
 #include"TwoLevelVmSys.h"
@@ -40,7 +39,8 @@ void VMRunner::request(const Address & address, int pid)
 		info.tlbHit = false;
 
 		fNumber = vms->request(address, pid, ram); // 在虚存中查找得到页框号
-		tlb->allocate(pNumber, fNumber); // 记录在TLB中
+		TlbEntry entry(pNumber, fNumber);
+		tlb->allocate(entry); // 记录在TLB中
 	}
 	else { // TLB命中
 		ram->visit(fNumber); // 更新内存的LRU队列

@@ -1,11 +1,17 @@
 #include "Memory.h"
 
-int Memory::allocate(int pid, int pNumber)
+int Memory::allocate(const PageFrame & frame)
 {
-	return 0;
+	bool valid = false;
+	PageFrame result;
+	int fNumber = memory->allocate(frame, valid, result);
+	if (valid) { // 旧的页框被替换，需要更新属于进程的页表，先保存在缓存中
+		cache->put(result.getPid(), fNumber);
+	}
+	return fNumber;
 }
 
-int Memory::visit(int fNumber)
+void Memory::visit(int fNumber)
 {
-	return 0;
+	memory->visitByIndex(fNumber);
 }

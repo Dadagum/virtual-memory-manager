@@ -6,7 +6,8 @@ using namespace std;
 void test() {
 	Test test;
 	// test.testLruList();
-	test.testNextAddressValue();
+	//test.testNextAddressValue();
+	test.testCachePool();
 }
 
 int main() {

@@ -3,6 +3,15 @@
 using namespace std;
 
 template<typename T>
+void LruList<T>::init(int c)
+{
+	size = 0;
+	this->capacity = c;
+	data = new T[c];
+	record.clear();
+}
+
+template<typename T>
 int LruList<T>::allocate(const T & item,  bool & valid, T & result)
 {
 	int next = 0; // 下一个插入的位置
@@ -25,11 +34,6 @@ int LruList<T>::allocate(const T & item,  bool & valid, T & result)
 	}
 	data[next] = item; // 插入数据
 	return next;
-}
-
-template<typename T>
-void LruList<T>::visit(const T & item)
-{
 }
 
 template<typename T>
@@ -56,10 +60,32 @@ int LruList<T>::hasElement(const T & item)
 }
 
 template<typename T>
-T & LruList<T>::operator[](int index)
+T & LruList<T>::get(int index)
 {
 	return data[index];
 }
+
+template<typename T>
+void LruList<T>::reset(int c)
+{
+	record.clear();
+	delete[] data;
+	data = NULL;
+	init(c);
+}
+
+template<typename T>
+int LruList<T>::getSize() const
+{
+	return size;
+}
+
+template<typename T>
+int LruList<T>::getCapacity() const
+{
+	return capacity;
+}
+
 
 template<typename T>
 void LruList<T>::print()

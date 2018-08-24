@@ -1,6 +1,7 @@
 #pragma once
 #include"PageFrame.h"
 #include"SysConfig.h"
+#include"CachePool.h"
 #include"LruList.h"
 #include<cmath>
 
@@ -10,17 +11,17 @@
 class Memory {
 private:
 	LruList<PageFrame> * memory;
-	int capacity;
-	int size;
+	CachePool<int> * cache; // 缓存，缓存已经被替换的页框号，pid作为key
 public:
 	Memory() {
-		size = 0;
-		capacity = SysConfig::M_SIZE * pow(2, 10) / SysConfig::PAGE_SIZE;
+		int capacity = SysConfig::M_SIZE * pow(2, 10) / SysConfig::PAGE_SIZE;
 		memory = new LruList<PageFrame>(capacity);
+		cache = new CachePool<int>(SysConfig::PROCESS);
 	}
 	~Memory() {
 		delete memory;
+		delete cache;
 	}
-	int allocate(int pid, int pNumber); // 分配一个页框，此处的pNumber只是PTn的值
-	int visit(int fNumber); // 更新LRU序列
+	int allocate(const PageFrame & frame); // 分配一个页框，此处的pNumber只是PTn的值，返回新分配的页框号
+	void visit(int fNumber); // 更新LRU序列
 };

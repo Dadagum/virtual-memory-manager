@@ -1,6 +1,8 @@
 #include "Test.h"
 #include"LruList.h"
 #include"LruList.cpp"
+#include"CachePool.h"
+#include"CachePool.cpp"
 #include"RandomUtil.h"
 #include<iomanip>
 #include<iostream>
@@ -37,5 +39,21 @@ void Test::testLruList()
 void Test::testNextAddressValue()
 {
 	RandomUtil random;
+	/*	
 	for (int i = 0; i < 10; i++) cout << hex << random.nextAddressValue(1) << endl;
+	*/
+	int total = 0;
+	Address * test = random.nextAddressList(2, total, 256);
+	for (int i = 0; i < total; i++) cout << hex << test[i].getValue() << endl;
 }
+
+void Test::testCachePool()
+{
+	CachePool<int> pool(5);
+	for (int i = 0; i < 5; i++) pool.put(2, i);
+	while (!pool.isEmpty(2)) cout << pool.pop(2) << endl;
+	for (int i = 6; i < 11; i++) pool.put(1, i);
+	while (!pool.isEmpty(1)) cout << pool.pop(1) << endl;
+
+}
+
