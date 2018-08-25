@@ -1,6 +1,6 @@
 #include"Tlb.h"
 
-void Tlb::clear(int capacity = SysConfig::TLB)
+void Tlb::clear(int capacity)
 {
 	entries->reset(capacity);
 }
@@ -8,7 +8,7 @@ void Tlb::clear(int capacity = SysConfig::TLB)
 int Tlb::getfNumber(int pNumber)
 {
 	for (int i = 0; i < entries->getSize(); i++)
-		if (entries->get(i).getpNumber == pNumber) { // TLB中有记录
+		if (entries->get(i).getpNumber() == pNumber) { // TLB中有记录
 			return entries->get(i).getfNumber();
 		}
 	return Constant::TLB_MISS; // TLB缺失

@@ -11,12 +11,13 @@
 class Memory {
 private:
 	LruList<PageFrame> * memory;
-	CachePool<int> * cache; // 缓存，缓存已经被替换的页框号，pid作为key
 public:
+	CachePool<PageFrame> * cache; // 缓存，缓存已经被替换的页框号，pid作为key
+
 	Memory() {
 		int capacity = SysConfig::M_SIZE * pow(2, 10) / SysConfig::PAGE_SIZE;
 		memory = new LruList<PageFrame>(capacity);
-		cache = new CachePool<int>(SysConfig::PROCESS);
+		cache = new CachePool<PageFrame>(SysConfig::PROCESS);
 	}
 	~Memory() {
 		delete memory;

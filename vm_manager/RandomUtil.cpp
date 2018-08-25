@@ -28,7 +28,7 @@ Address * RandomUtil::nextAddressList(int round, int & total, int size)
 	Address * tmp = new Address[total];
 	for (int cur = 0, r = 0; r < round; r++, cur += SysConfig::RAN_LIST + 1) {
 		int address = nextAddressValue(size);
-		for (int i = 0; i <= SysConfig::RAN_LIST; i++) tmp[cur + i].setValue(address + i);
+		for (int i = 0; i <= SysConfig::RAN_LIST; i++) tmp[cur + i].value = address + i;
 	}
 	return tmp;
 }

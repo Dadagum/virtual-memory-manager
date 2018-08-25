@@ -12,7 +12,7 @@ public:
 	RequestInfo() {
 		pNumber = 0;
 		fNumber = 0;
-		tlbHit = 0;
-		ptHit = 0;
+		tlbHit = false;
+		ptHit = false;
 	}
 };
