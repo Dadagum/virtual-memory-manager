@@ -58,7 +58,7 @@ void VMRunner::run()
 {
 	RandomUtil random;
 	for (int r = 0; r < SysConfig::P_ROUND; r++) { // 执行round轮
-		for (int p = 0; p < SysConfig::PROCESS; p++) { // 轮流执行
+		for (int p = 1; p < SysConfig::PROCESS; p++) { // 轮流执行 // test : p从1开始
 			// 导入外部页表的内容
 			vms->importPageTable(p, ram);
 

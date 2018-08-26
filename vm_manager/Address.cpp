@@ -1,12 +1,13 @@
-#include "Address.h"
+#include"Address.h"
+#include<cmath>
 
-int Address::getNumber(const int start, const int end) const
+unsigned Address::getNumber(const int start, const int end) const
 {
-	return 0;
+	return value % (int)pow(2, end) / pow(2, start);
 }
 
-int Address::getNumber(const int start) const
+unsigned Address::getNumber(const int start) const
 {
-	return 0;
+	return value / pow(2, start);
 }
 

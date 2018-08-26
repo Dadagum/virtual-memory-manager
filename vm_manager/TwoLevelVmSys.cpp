@@ -108,6 +108,7 @@ int TwoLevelVmSys::request(const Address & address, int pid, Memory * ram, Reque
 	// 得到PT1，PT2的值
 	int pt1 = address.getNumber(SysConfig::OFFSET + SysConfig::PT2);
 	int pt2 = address.getNumber(SysConfig::OFFSET, SysConfig::PT2);
+	cout << "pt1 = " << pt1 << ", pt2 = " << pt2 << endl;
 	// 查看顶级页表，找到对应的页表项
 	if (!root->entries[pt1].present) { // 二级页表仍然没有加载
 		table2[pt1] = new PageTable(e2); // 加载二级页表到内存
@@ -119,8 +120,9 @@ int TwoLevelVmSys::request(const Address & address, int pid, Memory * ram, Reque
 	}
 	// 此时二级页表已经在内存，查看二级页表对应的表项
 	int index = root->entries[pt1].number; // 取出二级页表所在的地址/位置
+	cout << "index = " << index << endl;
 	// 查看是否在内存中
-	if (!table2[index]->entries[pt2].present) { // 不在内存中，需要加载到内存
+	if (!table2[index]->entries[pt2].present) { // 不在内存中，需要加载到内存 // ERROR
 
 		PageFrame frame(pid, pt2);
 		fNumber = ram->allocate(frame); // 分配新的页框到内存中
