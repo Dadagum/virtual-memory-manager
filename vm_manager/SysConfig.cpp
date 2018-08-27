@@ -1,9 +1,9 @@
 #include"SysConfig.h"
 
 // 进程配置
-const int SysConfig::PROCESS = 5;
-const int SysConfig::P_SIZE[5] = {1, 32, 64, 128, 256};
-const int SysConfig::P_ROUND = 3;
+const int SysConfig::PROCESS = 5; // 进程的个数
+const int SysConfig::P_SIZE[5] = {1, 32, 64, 128, 256}; // 对应进程的大小
+const int SysConfig::P_ROUND = 30; // 进程轮流执行的轮数
 
 // 内存配置
 const int SysConfig::VA_BIT = 32; // 虚拟地址位长

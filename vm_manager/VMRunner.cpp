@@ -88,6 +88,9 @@ void VMRunner::run()
 			tlb->clear();
 			// 保存命中信息到文件中
 			Logger::saveRequestInfo(infoList, total, p);
+
+			// 测试：打印出当前内存中已经分配的页框数量
+			cout << "当前物理内存已经分配的页框数量为 : " << ram->getSize() << "个" << endl;
 		}
 	}
 

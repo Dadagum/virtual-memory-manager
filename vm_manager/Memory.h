@@ -25,4 +25,7 @@ public:
 	}
 	int allocate(const PageFrame & frame); // 分配一个页框，此处的pNumber只是PTn的值，返回新分配的页框号
 	void visit(int fNumber); // 更新LRU序列
+	int getSize() const {
+		return memory->getSize();
+	}
 };
