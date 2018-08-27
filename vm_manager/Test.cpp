@@ -41,8 +41,8 @@ void Test::testNextAddressValue()
 	for (int i = 0; i < 10; i++) cout << hex << random.nextAddressValue(1) << endl;
 	*/
 	int total = 0;
-	Address * test = random.nextAddressList(1, total, 256);
-	for (int i = 0; i < total; i++) cout << hex << test[i].value << ", pt1 = " << dec << test[i].getNumber(SysConfig::OFFSET + SysConfig::PT2) << ", pt2 = " << test[i].getNumber(SysConfig::OFFSET, SysConfig::PT2) << endl;
+	Address * test = random.nextAddressList(50, total, 64);
+	for (int i = 0; i < total; i++) cout << hex << test[i].value << ", pt1 = " << dec << test[i].getNumber(SysConfig::OFFSET + SysConfig::PT2) << ", pt2 = " << test[i].getNumber(SysConfig::OFFSET, SysConfig::PT2 + SysConfig::OFFSET) << endl;
 }
 
 void Test::testCachePool()
@@ -53,4 +53,10 @@ void Test::testCachePool()
 	for (int i = 6; i < 11; i++) pool.put(1, i);
 	while (!pool.isEmpty(1)) cout << pool.pop(1) << endl;
 
+}
+
+void Test::testPt1Pt2()
+{
+	Address address(-1);
+	cout << hex << address.getNumber(SysConfig::OFFSET) << " " << address.getNumber(SysConfig::OFFSET, SysConfig::OFFSET + SysConfig::PT2) << " " << address.getNumber(SysConfig::PT2 + SysConfig::OFFSET);
 }

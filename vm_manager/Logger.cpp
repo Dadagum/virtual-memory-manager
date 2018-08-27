@@ -13,7 +13,7 @@ void Logger::saveAddressList(Address * addresses, int total, int pid)
 
 	ofstream fout(fileName, ios::out | ios::app);
 	for (int i = 0; i < total; i++) fout << "第" << dec << i+1 << "次访问地址 : " << hex << addresses[i].value << endl;
-
+	fout << endl;
 	fout.close();
 }
 
@@ -32,5 +32,7 @@ void Logger::saveRequestInfo(list<RequestInfo> & info, int total, int pid)
 		info.pop_front();
 		fout << "第" << dec << cnt++ << "次访问 : " << hex << r.pNumber << " " << dec << r.fNumber << " " << r.tlbHit << " " << r.ptHit << endl;
 	}
+	fout << endl;
 	fout.close();
 }
+

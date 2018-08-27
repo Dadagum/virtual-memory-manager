@@ -7,7 +7,8 @@ using namespace std;
 void test() {
 	Test test;
 	// test.testLruList();
-	test.testNextAddressValue();
+	//test.testNextAddressValue();
+	test.testPt1Pt2();
 	//test.testCachePool();
 }
 
@@ -17,8 +18,8 @@ void run() {
 }
 
 int main() {
-	test();
-	//run();
+	//test();
+	run();
 	system("pause");
 	return 0;
 }

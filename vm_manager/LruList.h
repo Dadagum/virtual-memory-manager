@@ -100,7 +100,6 @@ inline T & LruList<T>::get(int index)
 template<typename T>
 inline void LruList<T>::reset(int c)
 {
-	record.clear();
 	delete[] data;
 	data = NULL;
 	init(c);

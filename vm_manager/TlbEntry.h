@@ -6,21 +6,21 @@
 */
 class TlbEntry {
 private:
-	int pNumber; // –È“≥∫≈
-	int fNumber; // “≥øÚ∫≈
+	unsigned pNumber; // –È“≥∫≈
+	unsigned fNumber; // “≥øÚ∫≈
 	bool used; // ∏√Œª÷√ «∑Ò π”√
 public:
 	TlbEntry() {
 		setValue(0, 0, false);
 	}
-	TlbEntry(int p, int f) {
+	TlbEntry(unsigned p, unsigned f) {
 		setValue(p, f, false);
 	}
 
 	void clear() {
 		setValue(0, 0, false);
 	}
-	void setValue(int p, int f, bool u = true) {
+	void setValue(unsigned p, unsigned f, bool u = true) {
 		pNumber = p;
 		fNumber = f;
 		used = u;

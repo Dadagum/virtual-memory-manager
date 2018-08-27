@@ -25,5 +25,5 @@ public:
 	void savePageTable(int pid); // 将当前进程的页表保存到文件中
 	int request(const Address & addres, int pid, Memory * ram, RequestInfo & info); // 根据虚拟地址找出页框号，如果没有那么则会分配页框和虚页，返回新分配的页框号
 	int request(const Address & addres, int pid, Memory * ram);
-	
+	void recordPageTableTxt(int pid); // 为了方便显示页表的内容，在运行结束后将页表内容导出到txt文件中
 };
