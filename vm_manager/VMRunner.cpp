@@ -75,7 +75,7 @@ void VMRunner::run()
 
 			// 得到随机生成序列
 			int total = 0;
-			Address * addresses = random.nextAddressList(50, total, SysConfig::P_SIZE[p]); // 默认50次循环生成地址
+			Address * addresses = random.nextAddressList(SysConfig::RAN_ROUND, total, SysConfig::P_SIZE[p]); // 默认50次循环生成地址
 			Logger::saveAddressList(addresses, total, p); // 将访问的虚拟地址输出保存
 
 			for (int i = 0; i < total; i++) {
@@ -94,7 +94,7 @@ void VMRunner::run()
 		}
 	}
 
-	// 结合缓存更新各个进程的页表信息
+	// 将页表信息以文本文件输出
 	vms->recordPageTableTxt(SysConfig::PROCESS-1); // 直接写入最后一个进程的页表
 	for (int p = 0; p < SysConfig::PROCESS-1; p++) { // 更新前面进程的页表
 		vms->importPageTable(p, ram);
@@ -102,5 +102,5 @@ void VMRunner::run()
 	}
 
 	// 打印出各个进程的页缺失率
-	printPageFault(SysConfig::P_ROUND * 500);
+	printPageFault(SysConfig::P_ROUND * SysConfig::RAN_ROUND * (SysConfig::RAN_LIST+1));
 }

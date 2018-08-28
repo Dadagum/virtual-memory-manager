@@ -16,6 +16,10 @@ public:
 	TwoLevelVmSys();
 	~TwoLevelVmSys() {
 		delete root;
+		for (int i = 0; i < e2; i++) {
+			delete table2[i];
+			table2[i] = nullptr;
+		}
 		delete [] table2;
 	}
 	void reset(); // 重置页表内容
@@ -23,7 +27,8 @@ public:
 	// 实现父类方法
 	void importPageTable(int pid, Memory * ram); // 从外部文件导入页表
 	void savePageTable(int pid); // 将当前进程的页表保存到文件中
-	int request(const Address & addres, int pid, Memory * ram, RequestInfo & info); // 根据虚拟地址找出页框号，如果没有那么则会分配页框和虚页，返回新分配的页框号
-	int request(const Address & addres, int pid, Memory * ram);
+
+	// 根据虚拟地址找出页框号，如果没有那么则会分配页框和虚页，返回新分配的页框号
+	int request(const Address & addres, int pid, Memory * ram, RequestInfo & info); 
 	void recordPageTableTxt(int pid); // 为了方便显示页表的内容，在运行结束后将页表内容导出到txt文件中
 };

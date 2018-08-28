@@ -23,5 +23,5 @@ private:
 public:
 	VMRunner();
 	~VMRunner();
-	void run(); // 入口函数：传入进程序列和执行次数，模拟开始
+	void run(); // 入口函数
 };

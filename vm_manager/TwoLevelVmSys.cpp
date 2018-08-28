@@ -7,7 +7,8 @@ using namespace std;
 void TwoLevelVmSys::init()
 {
 	root = new PageTable(e1);
-	table2 = new PageTable*[e2];
+	table2 = new PageTable*[e1];
+	for (int i = 0; i < e1; i++) table2[i] = nullptr;
 }
 
 TwoLevelVmSys::TwoLevelVmSys()
@@ -22,8 +23,11 @@ TwoLevelVmSys::TwoLevelVmSys()
 void TwoLevelVmSys::reset()
 {
 	delete root;
-	delete[] table2;
-	init();
+	for (int i = 0; i < e1; i++) {
+		delete table2[i];
+		table2[i] = nullptr;
+	}
+	root = new PageTable(e1);
 }
 
 
@@ -53,24 +57,31 @@ void TwoLevelVmSys::importPageTable(int pid, Memory * ram)
 			// 读取二级页表的页表项
 			for (int i = 0; i < e2; i++) fin.read((char *)&table2[index]->entries[i], sizeof table2[index]->entries[i]);
 
+			/*
 			// 检查是否有页框已经被其它进程置换
 			while (!ram->cache->isEmpty(pid)) {
 				PageFrame tmp = ram->cache->pop(pid); // 已经被置换出的页面
 
-				cout << "更新进程 pid = " << pid << "的页表 : " << " PT2 = " << tmp.getVa() << " 对应的页框被其它进程替换 " << endl;
+				unsigned pt1 = tmp.getVa().getNumber(SysConfig::OFFSET + SysConfig::PT2);
+				unsigned pt2 = tmp.getVa().getNumber(SysConfig::OFFSET, SysConfig::PT2 + SysConfig::OFFSET);
+
+				cout << "更新进程 pid = " << pid << "的页表 : " << " 虚拟地址 = " << tmp.getVa().value << " 对应的页框被其它进程替换 " << endl;
 
 				// 该页表项无效
-				table2[index]->entries[tmp.getVa()].present = false;
+				table2[index]->entries[index].present = false;
 				table2[index]->used--;
 			}
 
 			if (table2[index]->used == 0) delete table2[index]; // 二级页表为空
 			else {
 				// 恢复顶级页表的相关表项
-				root->entries[index].present = true;
-				root->entries[index].number = index;
-				root->used++;
 			}
+			*/
+
+			// 恢复顶级页表的相关表项
+			root->entries[index].present = true;
+			root->entries[index].number = index;
+			root->used++;
 		}
 	}
 
@@ -120,7 +131,7 @@ void TwoLevelVmSys::recordPageTableTxt(int pid)
 		fout << "---------- 顶级页表部分 ----------" << endl;
 		// 写入顶级页表
 		for (int i = 0; i < e1; i++) {
-			fout << i << "项 : 二级页表的地址 = " << root->entries[i].number << ", 有效位 = " << root->entries[i].present << endl;
+			if(root->entries[i].present) fout << "第" << i << "项 : 二级页表的地址 = " << root->entries[i].number << ", 有效位 = " << root->entries[i].present << endl;
 		}
 
 		fout << "---------- 二级页表部分 ----------" << endl;
@@ -130,7 +141,7 @@ void TwoLevelVmSys::recordPageTableTxt(int pid)
 			if (root->entries[i].present) { // 二级页表在内存中，需要写入文件 
 				fout << "二级页表地址 = " << i << " : ----------" << endl;
 				for (int j = 0; j < e2; j++) {
-					fout << "页框号 = " << table2[i]->entries[j].number << ", 有效位 = " << table2[i]->entries[j].present << endl;
+					if (table2[i]->entries[j].present) fout << "第" << j << "项 : 页框号 = " << table2[i]->entries[j].number << ", 有效位 = " << table2[i]->entries[j].present << endl;
 				}
 			}
 		}
@@ -146,6 +157,7 @@ int TwoLevelVmSys::request(const Address & address, int pid, Memory * ram, Reque
 	unsigned pt1 = address.getNumber(SysConfig::OFFSET + SysConfig::PT2);
 	unsigned pt2 = address.getNumber(SysConfig::OFFSET, SysConfig::PT2 + SysConfig::OFFSET);
 	// 查看顶级页表，找到对应的页表项
+
 	if (!root->entries[pt1].present) { // 二级页表仍然没有加载
 		table2[pt1] = new PageTable(e2); // 加载二级页表到内存
 
@@ -157,9 +169,9 @@ int TwoLevelVmSys::request(const Address & address, int pid, Memory * ram, Reque
 	// 此时二级页表已经在内存，查看二级页表对应的表项
 	unsigned index = root->entries[pt1].number; // 取出二级页表所在的地址/位置
 	// 查看是否在内存中
-	if (!table2[index]->entries[pt2].present) { // 不在内存中，需要加载到内存 // ERROR
+	if (!table2[index]->entries[pt2].present) { // 不在内存中，需要加载到内存 
 
-		PageFrame frame(pid, pt2);
+		PageFrame frame(pid, address);
 		fNumber = ram->allocate(frame); // 分配新的页框到内存中
 		
 		// 更新二级页表信息
@@ -177,10 +189,4 @@ int TwoLevelVmSys::request(const Address & address, int pid, Memory * ram, Reque
 	}
 	return fNumber;
 }
-
-int TwoLevelVmSys::request(const Address & addres, int pid, Memory * ram)
-{
-	return 0;
-}
-
 

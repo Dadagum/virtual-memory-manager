@@ -26,7 +26,7 @@ void Logger::saveRequestInfo(list<RequestInfo> & info, int total, int pid)
 
 	int cnt = 1;
 	ofstream fout(fileName, ios::out | ios::app);
-	fout << "VP PF TLB PT" << endl; // 信息头部
+	fout << "VP number   PF number  TLB Hit  PT Hit" << endl; // 信息头部
 	while (!info.empty()) {
 		RequestInfo r = info.front();
 		info.pop_front();

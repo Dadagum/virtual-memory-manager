@@ -57,6 +57,8 @@ void Test::testCachePool()
 
 void Test::testPt1Pt2()
 {
-	Address address(-1);
-	cout << hex << address.getNumber(SysConfig::OFFSET) << " " << address.getNumber(SysConfig::OFFSET, SysConfig::OFFSET + SysConfig::PT2) << " " << address.getNumber(SysConfig::PT2 + SysConfig::OFFSET);
+	//Address address(-1);
+	//cout << hex << address.getNumber(SysConfig::OFFSET) << " " << address.getNumber(SysConfig::OFFSET, SysConfig::OFFSET + SysConfig::PT2) << " " << address.getNumber(SysConfig::PT2 + SysConfig::OFFSET);
+	Address address(4294545464);
+	cout << address.getNumber(SysConfig::OFFSET + 5) << " " << address.getNumber(SysConfig::OFFSET, SysConfig::OFFSET + 5);
 }
