@@ -2,6 +2,7 @@
 #include<cmath>
 #include<iostream>
 #include<fstream>
+#include<iomanip>
 using namespace std;
 
 void TwoLevelVmSys::init()
@@ -57,35 +58,35 @@ void TwoLevelVmSys::importPageTable(int pid, Memory * ram)
 			// 读取二级页表的页表项
 			for (int i = 0; i < e2; i++) fin.read((char *)&table2[index]->entries[i], sizeof table2[index]->entries[i]);
 
-			/*
-			// 检查是否有页框已经被其它进程置换
-			while (!ram->cache->isEmpty(pid)) {
-				PageFrame tmp = ram->cache->pop(pid); // 已经被置换出的页面
-
-				unsigned pt1 = tmp.getVa().getNumber(SysConfig::OFFSET + SysConfig::PT2);
-				unsigned pt2 = tmp.getVa().getNumber(SysConfig::OFFSET, SysConfig::PT2 + SysConfig::OFFSET);
-
-				cout << "更新进程 pid = " << pid << "的页表 : " << " 虚拟地址 = " << tmp.getVa().value << " 对应的页框被其它进程替换 " << endl;
-
-				// 该页表项无效
-				table2[index]->entries[index].present = false;
-				table2[index]->used--;
-			}
-
-			if (table2[index]->used == 0) delete table2[index]; // 二级页表为空
-			else {
-				// 恢复顶级页表的相关表项
-			}
-			*/
-
 			// 恢复顶级页表的相关表项
 			root->entries[index].present = true;
 			root->entries[index].number = index;
 			root->used++;
+			
+		}
+	}
+	fin.close();
+
+	// 检查是否有页框已经被其它进程置换
+	while (!ram->cache->isEmpty(pid)) {
+		PageFrame tmp = ram->cache->pop(pid); // 已经被置换出的页面
+
+		unsigned pt1 = tmp.getVa().getNumber(SysConfig::OFFSET + SysConfig::PT2);
+		unsigned pt2 = tmp.getVa().getNumber(SysConfig::OFFSET, SysConfig::PT2 + SysConfig::OFFSET);
+
+		cout << "更新进程 pid = " << dec << pid << "的页表 : " << " 虚拟页号为 " << tmp.getVa().value << " 所对应的页框被其它进程替换 " << endl;
+
+		// 该页表项无效
+		table2[pt1]->entries[pt2].present = false;
+		table2[pt1]->used--;
+
+		if (table2[pt1]->used == 0) { // 二级页表为空
+			delete table2[pt1]; 
+			root->entries[pt1].present = false;
 		}
 	}
 
-	fin.close();
+
 }
 
 void TwoLevelVmSys::savePageTable(int pid)
@@ -157,7 +158,6 @@ int TwoLevelVmSys::request(const Address & address, int pid, Memory * ram, Reque
 	unsigned pt1 = address.getNumber(SysConfig::OFFSET + SysConfig::PT2);
 	unsigned pt2 = address.getNumber(SysConfig::OFFSET, SysConfig::PT2 + SysConfig::OFFSET);
 	// 查看顶级页表，找到对应的页表项
-
 	if (!root->entries[pt1].present) { // 二级页表仍然没有加载
 		table2[pt1] = new PageTable(e2); // 加载二级页表到内存
 

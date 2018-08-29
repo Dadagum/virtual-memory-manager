@@ -41,6 +41,7 @@ void VMRunner::request(const Address & address, int pid)
 		info.tlbHit = false;
 
 		fNumber = vms->request(address, pid, ram, info); // 在虚存中查找得到页框号
+
 		TlbEntry entry(pNumber, fNumber);
 		tlb->allocate(entry); // 记录在TLB中
 	}
@@ -90,7 +91,7 @@ void VMRunner::run()
 			Logger::saveRequestInfo(infoList, total, p);
 
 			// 测试：打印出当前内存中已经分配的页框数量
-			cout << "当前物理内存已经分配的页框数量为 : " << ram->getSize() << "个" << endl;
+			cout << "当前物理内存已经分配的页框数量为 : " << dec << ram->getSize() << "个" << endl;
 		}
 	}
 
