@@ -42,5 +42,4 @@ public:
 	// 随机数生成配置
 	static const int RAN_LIST; // 第一个地址生成后再连续生成地址的个数
 	static const int RAN_ROUND; // 生成总共地址序列的次数
-
 };
